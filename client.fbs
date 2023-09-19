@@ -1,0 +1,27 @@
+
+namespace Test;
+
+union TypeOfClient { Person, Group }
+
+enum Gender:byte { Male = 0, Female = 1 }
+
+table Person {
+    name:string;
+    age:short;
+    weight:float;
+    gender:Gender;
+}
+
+table Group {
+    grp_name:string;
+    avg_age:float;
+    avg_weight:float;
+    list_names:[string];
+}
+
+table Client {
+    client_type:TypeOfClient;
+}
+
+
+root_type Client;
