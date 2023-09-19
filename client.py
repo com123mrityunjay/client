@@ -33,23 +33,32 @@ def main():
 
         person.Init(client.ClientType().Bytes, client.ClientType().Pos)
 
-        assert person.Name() == b"Ram"
+        assert person.Name().decode() == "Ram"
         assert person.Age() == 21
         assert round(person.Weight()) == 76
         assert person.Gender() == Test.Gender.Gender().Male
+        print(person.Name().decode(),person.Age(),person.Weight(),person.Gender(),end=" ")
 
     else:
         
         group = Test.Group.Group()
-
         group.Init(client.ClientType().Bytes, client.ClientType().Pos)
 
-        assert group.GrpName() == "FightClub"
-        assert round(group.AvgAge()) == 25
+        assert group.GrpName().decode() == "FightClub"
+        assert round(group.AvgAge()) == 24
         assert round(group.AvgWeight()) == 66
         expected_list_names = ["Ram","Shayam","Raghuveer"]
+
+        print_list_names = []
+        for i in range(group.ListNamesLength()):
+            assert group.ListNames(i).decode() == expected_list_names[i]
+            print_list_names.append(group.ListNames(i).decode())
     
-    print('The FlatBuffer was successfully decoded!')
+        print_group_list_names = ' '.join(print_list_names)
+
+        print(group.GrpName().decode(),group.AvgAge(),group.AvgWeight(),print_group_list_names,end=" ")
+
+    print('The FlatBuffer was successfully decoded!')    
 
 if __name__ == '__main__':
     main()
